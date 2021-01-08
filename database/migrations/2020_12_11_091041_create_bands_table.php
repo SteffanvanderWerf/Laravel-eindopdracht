@@ -16,11 +16,16 @@ class CreateBandsTable extends Migration
         Schema::create('bands', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('band_image')->nullable();
             $table->string('band_name');
             $table->string('music_genres');
-            $table->string('description');
+            $table->longText('description', 255 );
             $table->string('biography');
-            // $table->binary('band_img')->nullable();
+            $table->string('video_1')->nullable();
+            $table->string('video_2')->nullable();
+            $table->string('video_3')->nullable();
+            $table->string('bg_color');
+            $table->string('text_color');
         });
     }
 
