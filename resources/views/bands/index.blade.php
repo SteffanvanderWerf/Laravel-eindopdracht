@@ -44,8 +44,8 @@
 							<td class="text-truncate" style="max-width:200px">{{$band->description}}</td>
 							<td>{{$band->biography}}</td>
 							@if(auth()->user() !== null ? $band->users()->where('user_id', auth()->user()->getKey())->exists() : false)
-							<td><a href="{{ route('bands.edit',$band->id)}}" class="btn btn-primary">Aanpassen</a></td>
-							<td>
+							<td title="Edit band"><a href="{{ route('bands.edit',$band->id)}}" class="btn btn-primary">Aanpassen</a></td>
+							<td title="Verwijder band">
 								<form action="{{ route('bands.destroy', $band->id)}}"  method="post">
 									@csrf
 									@method('DELETE')
@@ -58,13 +58,13 @@
 							@if(auth()->user() !== null ? !$band->users()->where('user_id', auth()->user()->getKey())->exists() : false)
 								<form action="{{ route('addUser', $band->id)}}"  method="post">
 									@csrf
-									<button  class="btn btn-success" type="submit">+</button>
+									<button title="Voeg band toe aan profiel" class="btn btn-success" type="submit">+</button>
 								</form>
 							@endif
 							@if(auth()->user() !== null ? $band->users()->where('user_id', auth()->user()->getKey())->exists() : false)
 								<form action="{{ route('removeUser', $band->id)}}"  method="post">
 									@csrf
-									<button class="btn btn-danger" type="submit">x</button>
+									<button title="Verwijder band van profiel" class="btn btn-danger" type="submit">x</button>
 								</form>
 							@endif
 							</td>

@@ -175,6 +175,7 @@ class BandController extends Controller
     public function destroy(Band $band)
     {
         $band->delete();
+        auth()->user()->bands()->detach($band);
         return redirect('/bands')->with('message', 'Band is verwijderd!');
 
     }

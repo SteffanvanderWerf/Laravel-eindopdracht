@@ -59,7 +59,7 @@
                             @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->username }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 my-3"><a class="btn btn-info text-center text-white w-100" href="{{ route('bands.index') }}">Zoek bands</a></div>
+                <div class="col-12 my-3"><a class="btn btn-info text-center text-white w-100" href="{{ route('bands.index') }}"><span class="material-icons align-middle mr-1">search</span>Zoek bands</a></div>
             </div>
         </main>
     </div>

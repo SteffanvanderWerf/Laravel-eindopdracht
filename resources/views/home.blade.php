@@ -10,15 +10,17 @@
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            {{ session('status') }} 
                         </div>
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <br>
+                    Fijne dag gewenst <span class="font-weight-bold"> {{Auth::user()->name}}</span>.
 
                      <a class="btn btn-primary float-right" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                                                         document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
+                        {{ __('Logout') }} 
                     </a>
                 </div>
             </div>
@@ -68,39 +70,35 @@
                                         <tr>
                                             <td>ID</td>
                                             <td>Band naam</td>
-                                            <td>Muziek genres:</td>
                                             <td>Omschrijving</td>
                                             <td>biography:</td>
                                             <!-- hier stond meer -->
+                                            <td>Band verwijderen van profiel</td>
                                             <td colspan = 2>Actions</td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($bands as $band)
                                         <tr>
-                                            <td><a href="{{ route('bands.show',$band->band_id)}}" class="btn btn-primary">{{$band->band_id}}</a></td>
-                                            <td>{{$band->band_name}}</td>
-                                            <td>{{$band->music_genres}}</td>
-                                            <td>{{$band->description}}</td>
-                                            <td>{{$band->description}}</td>
-                                            <td>{{$band->description}}</td>
-                                            <td>{{$band->description}}</td>
-                                            <td><a href="{{ route('bands.edit',$band->band_id)}}" class="btn btn-sm btn-primary">Aanpassen</a></td>
-                                            <td>
-                                                <form action="{{ route('bands.destroy', $band->band_id)}}"  method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-sm btn-danger" type="submit">Verwijderen</button>
-                                                </form>
-                                            </td>
-                                            @if(auth()->user() !== null ? !$band->users()->where('user_id', auth()->user()->getKey())->exists() : false)
-                                            <td>
+                                            <td class="align-middle"><a href="{{ route('bands.show',$band->band_id)}}" class="btn btn-primary">{{$band->band_id}}</a></td>
+                                            <td class="align-middle">{{$band->band_name}}</td>
+                                            <td class="align-middle">{{$band->description}}</td>
+                                            <td class="align-middle">{{$band->biography}}</td>
+                                            @if(auth()->user() !== null ? $band->users()->where('user_id', auth()->user()->getKey())->exists() : false)
+                                            <td class="align-middle text-center" title="Verwijder band van profiel">
                                                 <form action="{{ route('removeUser', $band->band_id)}}"  method="post">
                                                     @csrf
                                                     <button class="btn btn-sm btn-danger" type="submit">x</button>
                                                 </form>
                                             </td>
                                             @endif
+                                            <td class="align-middle" title="Edit band"><a href="{{ route('bands.edit',$band->band_id)}}" class="btn btn-sm btn-primary">Aanpassen</a></td>
+                                            <td class="align-middle" title="Verwijder band">
+                                                <form action="{{ route('bands.destroy', $band->band_id)}}"  method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-sm btn-danger" type="submit">Verwijderen</button>
+                                                </form>
                                             </td>
                                         </tr>
                                         @endforeach
